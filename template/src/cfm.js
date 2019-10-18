@@ -1,7 +1,7 @@
 import  { ToastPlugin ,ConfirmPlugin } from 'vux'
 import Vue from "vue"
-import { resolve } from 'upath';
 Vue.use(ToastPlugin,{position: 'middle'});
+Vue.use(ConfirmPlugin,{position: 'middle'});
 var self = new Vue()
 export const msgerror = function(msg){
   self.$vux.toast.show({

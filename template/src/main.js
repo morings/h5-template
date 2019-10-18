@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import gallery from 'img-vuer'
 import "./rem"
 import "./assets/styles/reset.css"
 import "./assets/styles/index.css"

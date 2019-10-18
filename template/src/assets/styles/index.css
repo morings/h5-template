@@ -22,3 +22,24 @@ display: none;
 .position-absolute{
   position: absolute
 }
+.text-danger{
+  color:#F56C6C
+}
+.text-warn{
+  color:#E6A23C
+}
+.text-success{
+  color:#67C23A
+}
+.text-info{
+  color:#909399
+}
+.text-primary{
+  color:#409EFF
+}
+.text-white{
+  color:#fff
+}
+.text-align-right{
+  text-align: right
+}

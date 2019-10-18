@@ -1,6 +1,10 @@
 //全局mixin
 import Vue from 'vue'
-
+import TabBar from "./components/Common/TabBar.vue"
+import LHead from "./components/Common/Head"
+import NumInput from "./components/Common/NumInput.vue"
+import RefleshScroll from "./components/Common/RefleshScroll"
+import SelectField from "./components/Common/SelectField.vue"
 Vue.mixin({
   methods:{
     goback(){
@@ -42,6 +46,28 @@ Vue.mixin({
         navigator.msSaveBlob(blob, fileName)
       }
     },
+    //时间选择器
+    showDateRange(type,time,title,start,minHour){
+      let self = this;
+      return new Promise((resolve)=>{
+        self.$vux.datetime.show({
+          format:type,
+          value:time,
+          startDate:start,
+          clearText:title,
+          minHour:minHour,
+          confirmText:'确定',
+          cancelText:'取消',
+          onConfirm(val) {
+            resolve(val)          
+          },
+        })
+      })    
+    },
+    loadBottom(){
+      this.data.Page++;
+      this.search()  
+    },
     queryParams (data, isPrefix) {
       isPrefix = isPrefix ? isPrefix : false
       let prefix = isPrefix ? '?' : ''
@@ -55,7 +81,11 @@ Vue.mixin({
     }
   },
   components:{
-    
+    TabBar,
+    LHead,
+    NumInput,
+    RefleshScroll,
+    SelectField
   },
   mounted(){
    

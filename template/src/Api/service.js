@@ -5,25 +5,21 @@ import router from '../router/index'
 import {delCookie} from "../cookie.js"
 export const baseURL = window.config.baseURL;
 const service = axios.create({
-  baseURL:baseURL
+  baseURL:baseURL,
+  headers:{
+    'Content-Type':'application/json'
+  }
 });
 const errorInfo = {
 }
 var MaskLoad = null;
 service.interceptors.request.use(config => {
-  document.getElementById("transMask").style.display = "block";
-  config.headers['Content-Type'] = 'application/json';
-  if(config.url.indexOf("/HWJHP/client/image/upload")!=-1){
-    config.headers['Content-Type'] = 'multipart/form-data'
-  }else{ 
-    if(typeof(config.data)=="string"){
-      var data = JSON.parse(config.data)
-    }else{
-      var data = config.data;
-    }
-  }
-  deleteEmptyProperty(data)
-  config.data = JSON.stringify(data);  
+  MaskLoad = Loading.service({
+    lock: true,
+    text: '数据请求中',
+    spinner: 'el-icon-loading',
+    background: 'rgba(0, 0, 0, 0.7)'
+  });
   return config;
 }, error => {  //请求错误处理
   return Promise.reject(error)

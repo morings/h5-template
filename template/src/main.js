@@ -9,6 +9,7 @@ import "./assets/styles/reset.css"
 import "./assets/styles/index.css"
 import './globalMixin'
 import "./directive"
+import "./vux"
 import {deepClone} from "./tool"
 import {setCookie,getCookie,delCookie} from "./cookie"
 import {msgerror,cfm,msgsuccess} from "./cfm"

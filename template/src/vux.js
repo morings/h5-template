@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import {VChart, VLine, VArea, VBar, VPie, VPoint, VScale, VAxis, VGuide, VTooltip, VLegend,ButtonTab, ButtonTabItem ,Search,Checklist ,XSwitch ,Datetime ,XTextarea ,Step, StepItem,Scroller ,CellBox ,Rater ,FormPreview ,Card ,Checker, CheckerItem,PopupHeader ,Popup ,PopupPicker ,Cell ,DatetimePlugin ,Panel ,Tab, TabItem , XButton ,Divider ,XInput,Group,Tabbar, TabbarItem,XHeader,Swiper ,Flexbox, FlexboxItem ,Grid,GridItem} from 'vux'
-
+import {Picker ,TransferDom ,VChart, VLine, VArea, VBar, VPie, VPoint, VScale, VAxis, VGuide, VTooltip, VLegend,ButtonTab, ButtonTabItem ,Search,Checklist ,XSwitch ,Datetime ,XTextarea ,Step, StepItem,Scroller ,CellBox ,Rater ,FormPreview ,Card ,Checker, CheckerItem,PopupHeader ,Popup ,PopupPicker ,Cell ,DatetimePlugin ,Panel ,Tab, TabItem , XButton ,Divider ,XInput,Group,Tabbar, TabbarItem,XHeader,Swiper ,Flexbox, FlexboxItem ,Grid,GridItem} from 'vux'
+Vue.component('picker', Picker)
 Vue.component('x-input', XInput)
 Vue.component('group', Group)
 Vue.component('x-button', XButton)
@@ -48,3 +48,4 @@ Vue.component('v-guide', VGuide)
 Vue.component('v-tooltip', VTooltip)
 Vue.component('v-legend', VLegend)
 Vue.component('v-guide', VGuide)
+Vue.directive('transfer-dom', TransferDom)

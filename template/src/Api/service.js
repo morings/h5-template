@@ -3,14 +3,16 @@ axios.defaults.withCredentials=true;
 import {msgerror,msgsuccess} from "../cfm"
 import router from '../router/index'
 import {delCookie} from "../cookie.js"
+import { Loading } from 'element-ui';
 export const baseURL = window.config.baseURL;
 const service = axios.create({
-  baseURL:baseURL,
+  baseURL:process.env.NODE_ENV=='production'?baseURL:'/api/',
   headers:{
     'Content-Type':'application/json'
   }
 });
 const errorInfo = {
+  
 }
 var MaskLoad = null;
 service.interceptors.request.use(config => {
@@ -26,26 +28,13 @@ service.interceptors.request.use(config => {
 });
 service.interceptors.response.use(
   response => {  //成功请求到数据
-      document.getElementById("transMask").style.display = "none";
       if(MaskLoad){
         MaskLoad.close();
         MaskLoad = null;
       }
-      if(response.data.success){
-        if(response.config.data && typeof(response.config.data) == 'string'){
-          var jsonData = JSON.parse(response.config.data);
-          if(jsonData.showSuccess){
-            msgsuccess(response.data.msg)
-          }
-        }
-        return response.data.data?response.data.data:response.data
-      }else{
-        showerror(response.data);
-        return Promise.reject()
-      }  
+      return response.data;
   },
   error => {  //响应错误处理
-    document.getElementById("transMask").style.display = "none";
     if(MaskLoad){
       MaskLoad.close();
       MaskLoad = null;
@@ -55,14 +44,7 @@ service.interceptors.response.use(
   }
 );
 function showerror(data){
-  if(data.code==10086){
-    delCookie("username");
-    router.push({
-      path:"/login",
-    })
-  }else{
-    msgerror(data.msg?data.msg:'接口错误')
-  }
+  msgerror(errorInfo[data.error_code])
   
 };
 function deleteEmptyProperty(object){

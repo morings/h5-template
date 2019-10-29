@@ -1,21 +1,15 @@
 <template>
-  <x-input   ref="elInput" :value="num" :disabled="disabled"      @on-blur="blur" :placeholder="placeholder" :readonly='readonly' :is-type='isType' :required='required' :title='title' :type="digit?'number':'tel'" :text-align='textAlign' ></x-input>
+  <el-input   ref="elInput"  v-model="num" :disabled="disabled"  @input="handInput" @blur="blur" :readonly='readonly' :size="size" type="text" :placeholder="placeholder">
+    <template slot="append">
+      <slot name="append"></slot>
+    </template>
+  </el-input>
 </template>
 <script>
 export default {
-  name:'NumInput',
   props:{
-    title:{
-      default:""
-    },
     value:{
 
-    },
-    textAlign:{
-      default:'right'
-    },
-    required:{
-      default:false
     },
     digit:{
       default:0
@@ -29,17 +23,14 @@ export default {
     negative:{
       default:false
     },
-    placeholder:{
-      default:''
-    },
     readonly:{
       default:false
     },
-    isType:{
-      type: Function,
-      default: function(){
-        return{valid:true}
-      },
+    size:{
+      default:"large"
+    },
+    placeholder:{
+      default:''
     }
   },
   data(){
@@ -49,19 +40,25 @@ export default {
   },
   watch:{
     value(a,b){
-      this.num = this.value;
+      if(this.value!==""){
+        var num = this.toNonExponential(this.value);
+        this.num = num;
+      }else{
+        this.num = ""
+      }    
     },
     max(){}
   },
   mounted(){
     this.num = this.value;
-    var input = this.$el.querySelector("input");
-    input.addEventListener("input",this.handInput);
-    //input.addEventListener("blur",this.handInput)
   },
   methods:{
     blur(){
       this.$emit('blur')
+    },
+    toNonExponential(num) {
+        var m = num.toExponential().match(/\d(?:\.(\d*))?e([+-]\d+)/);
+        return num.toFixed(Math.max(0, (m[1] || '').length - m[2]));
     },
     //只包括正数
     handInput(){
@@ -69,7 +66,7 @@ export default {
         return this.handNegative()
       }
       let self = this;
-      var value = self.$el.querySelector("input").value; 
+      var value = self.num;
        if(self.digit==0){
         value = value.replace(/[^\d]/g,"");
       }else{
@@ -90,19 +87,19 @@ export default {
       }
       if(self.max!==false && value>self.max){
         value = self.max;
-      }; 
-      console.log(value)     
-      self.$refs.elInput.currentValue=value;
+      }
+      this.num = value;
+      console.log(value)
       if(value===''){
         return self.$emit('input','')
-      };
+      }
       self.$emit('input', Number(value));
-     
+      
     },
     //包括负数
     handNegative(){
       let self = this;
-      var value = self.$el.querySelector("input").value;
+      var value = self.num;
       if(self.digit==0){
         value = value.replace(/[^\-\d]/g,"");
       }else{
@@ -123,11 +120,13 @@ export default {
       }
       value = value.replace(/\-{2,}/g,"-"); //只保留第一个, 清除多余的
       value = value.replace(/^(\-)/,"$#$").replace(/\-/g,"").replace("$#$","-");
-      self.$refs.elInput.currentValue=value;
-      if(value===''){
-        return self.$emit('input','')
-      }
-      self.$emit('input', Number(value));   
+      self.num = value;
+      if(!isNaN(value)){
+        if(value===''){
+          return self.$emit('input','')
+        }
+        self.$emit('input', Number(value));
+      }     
     }
   }
 }

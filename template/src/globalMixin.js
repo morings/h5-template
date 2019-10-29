@@ -1,10 +1,11 @@
 //全局mixin
 import Vue from 'vue'
-import TabBar from "./components/Common/TabBar.vue"
 import LHead from "./components/Common/Head"
 import NumInput from "./components/Common/NumInput.vue"
 import RefleshScroll from "./components/Common/RefleshScroll"
 import SelectField from "./components/Common/SelectField.vue"
+import ElNumInput from "./components/Common/ElNumInput.vue"
+import ListUpload from "./components/Common/ListUpload.vue"
 Vue.mixin({
   methods:{
     goback(){
@@ -81,11 +82,12 @@ Vue.mixin({
     }
   },
   components:{
-    TabBar,
     LHead,
     NumInput,
     RefleshScroll,
-    SelectField
+    SelectField,
+    ElNumInput,
+    ListUpload
   },
   mounted(){
    

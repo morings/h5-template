@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import gallery from 'img-vuer'
+import ElementUI from 'element-ui';
 import "./rem"
 import "./assets/styles/reset.css"
 import "./assets/styles/index.css"
@@ -15,6 +16,8 @@ import {setCookie,getCookie,delCookie} from "./cookie"
 import {msgerror,cfm,msgsuccess} from "./cfm"
 import $http from "./Api/api"
 Vue.config.productionTip = false
+Vue.use(gallery);
+Vue.use(ElementUI,{size:'small'});
 Vue.prototype.$http = $http;
 Vue.prototype.$deepClone = deepClone;
 Vue.prototype.$msgsuccess = msgsuccess;

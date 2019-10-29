@@ -11,6 +11,7 @@
     "vue-cli": "^2.8.1"
   },
   "dependencies": {
+    "element-ui": "^2.12.0",
     "img-vuer": "^0.19.1"
   }
 }

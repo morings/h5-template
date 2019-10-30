@@ -1,5 +1,5 @@
 <template>
-  <el-input   ref="elInput"  v-model="num" :disabled="disabled"  @input="handInput" @blur="blur" :readonly='readonly' :size="size" type="text" :placeholder="placeholder">
+  <el-input   ref="elInput" :value='value' :disabled="disabled"  @input="handInput" @blur="blur" :readonly='readonly' :size="size" type="text" :placeholder="placeholder" >
     <template slot="append">
       <slot name="append"></slot>
     </template>
@@ -33,25 +33,7 @@ export default {
       default:''
     }
   },
-  data(){
-    return{
-      num:''
-    }
-  },
-  watch:{
-    value(a,b){
-      if(this.value!==""){
-        var num = this.toNonExponential(this.value);
-        this.num = num;
-      }else{
-        this.num = ""
-      }    
-    },
-    max(){}
-  },
-  mounted(){
-    this.num = this.value;
-  },
+  
   methods:{
     blur(){
       this.$emit('blur')
@@ -61,13 +43,13 @@ export default {
         return num.toFixed(Math.max(0, (m[1] || '').length - m[2]));
     },
     //只包括正数
-    handInput(){
+    handInput(e){
       if(this.negative){
-        return this.handNegative()
+        return this.handNegative(e)
       }
       let self = this;
-      var value = self.num;
-       if(self.digit==0){
+      var value = e;
+      if(self.digit==0){
         value = value.replace(/[^\d]/g,"");
       }else{
         value = value.replace(/[^\d.]/g,""); //清除"数字"和"."以外的字符
@@ -87,19 +69,15 @@ export default {
       }
       if(self.max!==false && value>self.max){
         value = self.max;
-      }
-      this.num = value;
-      console.log(value)
-      if(value===''){
-        return self.$emit('input','')
-      }
-      self.$emit('input', Number(value));
+      };
+      console.log(this.$el.querySelector("input").value)
+      self.$emit('input', value);
       
     },
     //包括负数
-    handNegative(){
+    handNegative(e){
       let self = this;
-      var value = self.num;
+      var value = e;
       if(self.digit==0){
         value = value.replace(/[^\-\d]/g,"");
       }else{
@@ -120,13 +98,8 @@ export default {
       }
       value = value.replace(/\-{2,}/g,"-"); //只保留第一个, 清除多余的
       value = value.replace(/^(\-)/,"$#$").replace(/\-/g,"").replace("$#$","-");
-      self.num = value;
-      if(!isNaN(value)){
-        if(value===''){
-          return self.$emit('input','')
-        }
-        self.$emit('input', Number(value));
-      }     
+
+      self.$emit('input', value);          
     }
   }
 }

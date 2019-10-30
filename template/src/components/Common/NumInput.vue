@@ -1,5 +1,5 @@
 <template>
-  <x-input   ref="elInput" :value="num" :disabled="disabled"      @on-blur="blur" :placeholder="placeholder" :readonly='readonly' :is-type='isType' :required='required' :title='title' :type="digit?'number':'tel'" :text-align='textAlign' ></x-input>
+  <x-input   ref="elInput" :value="value" :disabled="disabled"      @on-blur="blur" :placeholder="placeholder" :readonly='readonly' :is-type='isType' :required='required' :title='title' type="text" :text-align='textAlign' ></x-input>
 </template>
 <script>
 export default {
@@ -42,34 +42,23 @@ export default {
       },
     }
   },
-  data(){
-    return{
-      num:''
-    }
-  },
-  watch:{
-    value(a,b){
-      this.num = this.value;
-    },
-    max(){}
-  },
   mounted(){
     this.num = this.value;
     var input = this.$el.querySelector("input");
     input.addEventListener("input",this.handInput);
-    //input.addEventListener("blur",this.handInput)
   },
   methods:{
     blur(){
       this.$emit('blur')
     },
     //只包括正数
-    handInput(){
+    handInput(e){
+      let event = e?e:window.event;
       if(this.negative){
         return this.handNegative()
       }
       let self = this;
-      var value = self.$el.querySelector("input").value; 
+      var value = event.target.value; 
        if(self.digit==0){
         value = value.replace(/[^\d]/g,"");
       }else{
@@ -90,13 +79,10 @@ export default {
       }
       if(self.max!==false && value>self.max){
         value = self.max;
-      }; 
-      console.log(value)     
-      self.$refs.elInput.currentValue=value;
-      if(value===''){
-        return self.$emit('input','')
-      };
-      self.$emit('input', Number(value));
+      };  
+      console.log(value);
+      event.target.value = value;
+      self.$emit('input',value);
      
     },
     //包括负数
@@ -123,11 +109,8 @@ export default {
       }
       value = value.replace(/\-{2,}/g,"-"); //只保留第一个, 清除多余的
       value = value.replace(/^(\-)/,"$#$").replace(/\-/g,"").replace("$#$","-");
-      self.$refs.elInput.currentValue=value;
-      if(value===''){
-        return self.$emit('input','')
-      }
-      self.$emit('input', Number(value));   
+      event.target.value = value;
+      self.$emit('input', value);   
     }
   }
 }

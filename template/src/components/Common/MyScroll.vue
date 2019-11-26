@@ -5,6 +5,8 @@
 </template>
 <script>
 import MescrollVue from 'mescroll.js/mescroll.vue'
+import toTop from "../../assets/img/mescroll-totop.png"
+import empty from "../../assets/img/mescroll-empty.png";
 export default {
   name: 'mescrollComponent',
   props:{
@@ -39,15 +41,14 @@ export default {
           num: 0, // 当前页码,默认0,回调之前会加1,即callback(page)会从1开始
           size: this.pageSize // 每页数据的数量
         },
-        auto:auto,
-        noMoreSize: 5, // 如果列表已无数据,可设置列表的总数量要大于等于5条才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看
+        noMoreSize: 0, // 如果列表已无数据,可设置列表的总数量要大于等于5条才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看
         toTop: {
-          src: '../../assets/img/mescroll-totop.png' // 回到顶部按钮的图片路径,支持网络图
+          src: toTop // 回到顶部按钮的图片路径,支持网络图
         },
         empty: {
           // 列表第一页无任何数据时,显示的空提示布局; 需配置warpId才生效;
           warpId: this.warpId, // 父布局的id;
-          icon: '../../assets/img/mescroll-empty.png', // 图标,支持网络图
+          icon: empty, // 图标,支持网络图
           tip: '暂无相关数据~', // 提示
         },
         lazyLoad: this.lazyLoad
@@ -78,9 +79,9 @@ export default {
         this.$emit("loadMore");
       }    
     },
-    complete(){
+    complete(length){
       this.$nextTick(() => {
-        this.mescroll.endSuccess(0)
+        this.mescroll.endSuccess(length)
       })
     },
     error(){

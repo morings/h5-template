@@ -3,6 +3,7 @@ import Vue from 'vue'
 import LHead from "./components/Common/Head"
 import NumInput from "./components/Common/NumInput.vue"
 import RefleshScroll from "./components/Common/RefleshScroll"
+import MyScroll from "./components/Common/MyScroll"
 import SelectField from "./components/Common/SelectField.vue"
 import ElNumInput from "./components/Common/ElNumInput.vue"
 import ListUpload from "./components/Common/ListUpload.vue"
@@ -87,7 +88,8 @@ Vue.mixin({
     RefleshScroll,
     SelectField,
     ElNumInput,
-    ListUpload
+    ListUpload,
+    MyScroll
   },
   mounted(){
    

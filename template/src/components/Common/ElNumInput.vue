@@ -1,5 +1,5 @@
 <template>
-  <el-input   ref="elInput" :value='value' :disabled="disabled"  @input="handInput" @blur="blur" :readonly='readonly' :size="size" type="text" :placeholder="placeholder" >
+  <el-input   ref="elInput" :value='value' :disabled="disabled"  @input="handInput" @blur="blur" :readonly='readonly' :size="size" :type="type" :placeholder="placeholder" >
     <template slot="append">
       <slot name="append"></slot>
     </template>
@@ -31,6 +31,9 @@ export default {
     },
     placeholder:{
       default:''
+    },
+    type:{
+      default:'text'
     }
   },
   

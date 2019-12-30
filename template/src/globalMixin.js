@@ -7,6 +7,8 @@ import MyScroll from "./components/Common/MyScroll"
 import SelectField from "./components/Common/SelectField.vue"
 import ElNumInput from "./components/Common/ElNumInput.vue"
 import ListUpload from "./components/Common/ListUpload.vue"
+import SlideView from "./components/Common/SlideView.vue"
+
 Vue.mixin({
   methods:{
     goback(){
@@ -89,7 +91,8 @@ Vue.mixin({
     SelectField,
     ElNumInput,
     ListUpload,
-    MyScroll
+    MyScroll,
+    SlideView
   },
   mounted(){
    

@@ -21,10 +21,28 @@ Vue.mixin({
         return false
       }
     },
-    initSearch(callback){
-      this.data.pageNo = 1;
+    initSearch(){
+      this.data.pageNo = 0;
       this.list = [];
-      this.search(callback)
+      this.search()
+    },
+    search(){
+      this.data.pageNo++;
+      this.$http[this.interface](this.data).then(res=>{
+        this.list = this.list.concat(res.data.list);
+        this.$refs.scroll.complete(res.data.list.length)
+      })
+    },
+    showLoad(text='Loading',background='rgba(0, 0, 0, 0.7)',spinner='el-icon-loading',lock=true,){
+      this.loading = this.$loading({
+        lock: lock,
+        text: text,
+        spinner: spinner,
+        background: background
+      });
+    },
+    hideLoad(){
+      this.loading.close()
     },
     //数字化
     Number(value){
@@ -67,10 +85,6 @@ Vue.mixin({
           },
         })
       })    
-    },
-    loadBottom(){
-      this.data.Page++;
-      this.search()  
     },
     queryParams (data, isPrefix) {
       isPrefix = isPrefix ? isPrefix : false

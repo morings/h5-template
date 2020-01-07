@@ -1,12 +1,12 @@
 <template>
-  <mescroll-vue ref="mescroll" :up="mescrollUp" @init="mescrollInit">
+  <mescroll-vue ref="mescroll" :up="mescrollUp" :down="mescrollDown" @init="mescrollInit">
     <slot></slot>
   </mescroll-vue>
 </template>
 <script>
 import MescrollVue from 'mescroll.js/mescroll.vue'
-import toTop from "../../assets/img/mescroll-totop.png"
-import empty from "../../assets/img/mescroll-empty.png";
+import toTop from "../../assets/image/mescroll-totop.png"
+import empty from "../../assets/image/mescroll-empty.png";
 export default {
   name: 'mescrollComponent',
   props:{
@@ -17,8 +17,11 @@ export default {
       default:''
     },
     auto:{
+      default:false
+    },//初始化时是否执行下拉刷新
+    use:{
       default:true
-    },
+    },//是否启用上拉加载
     lazyLoad(){
       return{
         use: true,
@@ -35,7 +38,13 @@ export default {
   data () {
     return {
       mescroll: null, // mescroll实例对象
+      mescrollDown:{
+        use:true,
+        auto:this.auto,
+        callback:this.downCallback
+      },
       mescrollUp: {
+        use:this.use,
         callback: this.upCallback, // 上拉回调,此处可简写; 相当于 callback: function (page, mescroll) { getListData(page); }
         page: {
           num: 0, // 当前页码,默认0,回调之前会加1,即callback(page)会从1开始
@@ -51,7 +60,8 @@ export default {
           icon: empty, // 图标,支持网络图
           tip: '暂无相关数据~', // 提示
         },
-        lazyLoad: this.lazyLoad
+        lazyLoad: this.lazyLoad,
+        auto:false
       },
     }
   },
@@ -84,10 +94,22 @@ export default {
         this.mescroll.endSuccess(length)
       })
     },
+    downCallback(){
+      this.$emit("refresh");
+    },
     error(){
       this.mescroll.endErr()
+    },
+    resetUpScroll(){
+      this.mescroll.resetUpScroll()
     }  
   },
   
 }
 </script>
+<style lang="less">
+.mescroll{
+  max-height: 100%;
+  height: auto;
+}
+</style>

@@ -27,6 +27,8 @@ const webpackConfig = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      '@img':resolve('src/assets/img'),
+      '@assets':resolve('src/assets')
     }
   },
   module: {

@@ -1,13 +1,12 @@
 //全局mixin
 import Vue from 'vue'
-import LHead from "./components/Common/Head"
+import MyHead from "./components/Common/Head"
 import NumInput from "./components/Common/NumInput.vue"
-import RefleshScroll from "./components/Common/RefleshScroll"
 import MyScroll from "./components/Common/MyScroll"
-import SelectField from "./components/Common/SelectField.vue"
 import ElNumInput from "./components/Common/ElNumInput.vue"
 import ListUpload from "./components/Common/ListUpload.vue"
 import SlideView from "./components/Common/SlideView.vue"
+import AvatarUpload from "./components/Common/AvatarUpload.vue"
 
 Vue.mixin({
   methods:{
@@ -33,7 +32,7 @@ Vue.mixin({
         this.$refs.scroll.complete(res.data.list.length)
       })
     },
-    showLoad(text='Loading',background='rgba(0, 0, 0, 0.7)',spinner='el-icon-loading',lock=true,){
+    showLoad(text='',background='rgba(0, 0, 0, 0.7)',spinner='el-icon-loading',lock=true){
       this.loading = this.$loading({
         lock: lock,
         text: text,
@@ -99,14 +98,13 @@ Vue.mixin({
     }
   },
   components:{
-    LHead,
+    MyHead,
     NumInput,
-    RefleshScroll,
-    SelectField,
     ElNumInput,
     ListUpload,
     MyScroll,
-    SlideView
+    SlideView,
+    AvatarUpload
   },
   mounted(){
    

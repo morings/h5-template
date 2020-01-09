@@ -44,3 +44,7 @@ display: none;
 .text-align-right{
   text-align: right
 }
+.moneyNum::before{
+  content: '¥ ';
+  font-size:24px;
+}

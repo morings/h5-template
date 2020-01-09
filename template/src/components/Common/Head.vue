@@ -83,7 +83,7 @@ export default {
   }
 }
 .vux-header.Head .vux-header-title{
-  font-size:36px;
+  font-size:18PX;
   font-family:PingFang SC;
   font-weight:bold;
 }

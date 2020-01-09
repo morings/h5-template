@@ -108,9 +108,3 @@ export default {
   
 }
 </script>
-<style lang="less">
-.mescroll{
-  max-height: 100%;
-  height: auto;
-}
-</style>

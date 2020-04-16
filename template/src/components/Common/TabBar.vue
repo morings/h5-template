@@ -1,3 +1,4 @@
+//底部导航栏
 <template>
   <div class="tabbar">
     <div class="item" v-for="(item,index) in tabbar" :key="index" @click="tabClick(item,index)">

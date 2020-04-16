@@ -1,3 +1,4 @@
+//滑动框组件
 <template>
   <div class="SlideView" @touchstart='onTouchStart' @touchmove='onTouchMove' @touchend='onTouchEnd'>
     <div class="left" :style="{marginLeft:left+'px'}" >

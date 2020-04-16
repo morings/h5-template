@@ -10,6 +10,7 @@ import AvatarUpload from "./components/Common/AvatarUpload.vue"
 
 Vue.mixin({
   methods:{
+    //返回上一层
     goback(){
       this.$router.go(-1);
     },
@@ -20,11 +21,13 @@ Vue.mixin({
         return false
       }
     },
+    //初始查询
     initSearch(){
       this.data.pageNo = 0;
       this.list = [];
       this.search()
     },
+    //查询
     search(){
       this.data.pageNo++;
       this.$http[this.interface](this.data).then(res=>{
@@ -32,6 +35,7 @@ Vue.mixin({
         this.$refs.scroll.complete(res.data.list.length)
       })
     },
+    //显示遮罩
     showLoad(text='',background='rgba(0, 0, 0, 0.7)',spinner='el-icon-loading',lock=true){
       this.loading = this.$loading({
         lock: lock,
@@ -40,6 +44,7 @@ Vue.mixin({
         background: background
       });
     },
+    //隐藏遮罩
     hideLoad(){
       this.loading.close()
     },
@@ -51,6 +56,7 @@ Vue.mixin({
         return Number(value)
       }
     },
+    //导出文件
     exportFile(res,fileName){
       const content = res
       const blob = new Blob([content])
@@ -85,17 +91,6 @@ Vue.mixin({
         })
       })    
     },
-    queryParams (data, isPrefix) {
-      isPrefix = isPrefix ? isPrefix : false
-      let prefix = isPrefix ? '?' : ''
-      let _result = []
-      for (let key in data) {
-        let value = data[key]
-        _result.push(key + '=' + value)
-      }
-  
-      return _result.length ? prefix + _result.join('&') : ''
-    }
   },
   components:{
     MyHead,
@@ -117,8 +112,7 @@ Vue.mixin({
   },
   data(){
     return{
-      imgBase:window.config.baseURL+"/zhezhenImg/",
-      formDisabled:true
+      imgBase:window.config.baseURL+"/zhezhenImg/"
     }
   },
   watch:{

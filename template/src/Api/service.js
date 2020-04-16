@@ -34,7 +34,7 @@ function showerror(data){
   
 };
 
-
+//判断对象是否为空
 function isEmpty(object) {
   for (var name in object) {
     return false;
